@@ -17,6 +17,7 @@ export default function Learn() {
   const queryClient = useQueryClient();
   const [currentLectureId, setCurrentLectureId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [aiPanelOpen, setAiPanelOpen] = useState(false);
 
   const { data: course } = useQuery({
     queryKey: ["course", slug],
