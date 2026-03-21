@@ -5,8 +5,9 @@ import { fetchCourseBySlug, fetchCourseTree, fetchEnrollment, fetchCourseProgres
 import { useAuth } from "@/hooks/useAuth";
 import { YouTubePlayer } from "@/components/YouTubePlayer";
 import { CourseSidebar } from "@/components/CourseSidebar";
+import { AIChatPanel } from "@/components/AIChatPanel";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, X, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Learn() {
@@ -16,6 +17,7 @@ export default function Learn() {
   const queryClient = useQueryClient();
   const [currentLectureId, setCurrentLectureId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [aiPanelOpen, setAiPanelOpen] = useState(false);
 
   const { data: course } = useQuery({
     queryKey: ["course", slug],
@@ -176,6 +178,13 @@ export default function Learn() {
                   <ChevronLeft className="mr-1 h-4 w-4" /> Previous
                 </Button>
                 <Button
+                  variant="secondary"
+                  onClick={() => setAiPanelOpen(true)}
+                  className="gap-2"
+                >
+                  <Sparkles className="h-4 w-4" /> Ask AI
+                </Button>
+                <Button
                   disabled={currentIndex >= allLectures.length - 1 || !unlockedSet.has(allLectures[currentIndex + 1]?.id)}
                   onClick={() => goToLecture(currentIndex + 1)}
                 >
@@ -186,6 +195,15 @@ export default function Learn() {
           )}
         </div>
       </div>
+
+      {/* AI Chat Panel */}
+      <AIChatPanel
+        open={aiPanelOpen}
+        onClose={() => setAiPanelOpen(false)}
+        courseTitle={course?.title}
+        lectureTitle={currentLecture?.title}
+        lectureDescription={currentLecture?.description ?? undefined}
+      />
     </div>
   );
 }
