@@ -178,6 +178,13 @@ export default function Learn() {
                   <ChevronLeft className="mr-1 h-4 w-4" /> Previous
                 </Button>
                 <Button
+                  variant="secondary"
+                  onClick={() => setAiPanelOpen(true)}
+                  className="gap-2"
+                >
+                  <Sparkles className="h-4 w-4" /> Ask AI
+                </Button>
+                <Button
                   disabled={currentIndex >= allLectures.length - 1 || !unlockedSet.has(allLectures[currentIndex + 1]?.id)}
                   onClick={() => goToLecture(currentIndex + 1)}
                 >
@@ -188,6 +195,15 @@ export default function Learn() {
           )}
         </div>
       </div>
+
+      {/* AI Chat Panel */}
+      <AIChatPanel
+        open={aiPanelOpen}
+        onClose={() => setAiPanelOpen(false)}
+        courseTitle={course?.title}
+        lectureTitle={currentLecture?.title}
+        lectureDescription={currentLecture?.description ?? undefined}
+      />
     </div>
   );
 }
