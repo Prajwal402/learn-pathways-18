@@ -5,8 +5,9 @@ import { fetchCourseBySlug, fetchCourseTree, fetchEnrollment, fetchCourseProgres
 import { useAuth } from "@/hooks/useAuth";
 import { YouTubePlayer } from "@/components/YouTubePlayer";
 import { CourseSidebar } from "@/components/CourseSidebar";
+import { AIChatPanel } from "@/components/AIChatPanel";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, X, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Learn() {
