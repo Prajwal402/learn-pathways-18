@@ -6,9 +6,11 @@ import { useAuth } from "@/hooks/useAuth";
 import { YouTubePlayer } from "@/components/YouTubePlayer";
 import { CourseSidebar } from "@/components/CourseSidebar";
 import { AIChatPanel } from "@/components/AIChatPanel";
+import { CertificateModal } from "@/components/CertificateModal";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Menu, X, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, X, Sparkles, Award } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Learn() {
   const { slug } = useParams<{ slug: string }>();
