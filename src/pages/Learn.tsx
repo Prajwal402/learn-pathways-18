@@ -114,7 +114,15 @@ export default function Learn() {
     queryClient.invalidateQueries({ queryKey: ["courseProgress"] });
     queryClient.invalidateQueries({ queryKey: ["lectureProgress"] });
     toast.success("Lecture completed!");
-  }, [user, currentLectureId, queryClient]);
+
+    // Check if all lectures are now completed
+    const newCompleted = new Set(completedSet);
+    newCompleted.add(currentLectureId);
+    if (allLectures.length > 0 && newCompleted.size === allLectures.length && !certShownForCourse) {
+      setCertShownForCourse(true);
+      setTimeout(() => setCertModalOpen(true), 800);
+    }
+  }, [user, currentLectureId, queryClient, completedSet, allLectures, certShownForCourse]);
 
   const goToLecture = (index: number) => {
     const lec = allLectures[index];
