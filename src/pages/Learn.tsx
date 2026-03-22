@@ -6,9 +6,11 @@ import { useAuth } from "@/hooks/useAuth";
 import { YouTubePlayer } from "@/components/YouTubePlayer";
 import { CourseSidebar } from "@/components/CourseSidebar";
 import { AIChatPanel } from "@/components/AIChatPanel";
+import { CertificateModal } from "@/components/CertificateModal";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Menu, X, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, X, Sparkles, Award } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Learn() {
   const { slug } = useParams<{ slug: string }>();
@@ -18,6 +20,8 @@ export default function Learn() {
   const [currentLectureId, setCurrentLectureId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [aiPanelOpen, setAiPanelOpen] = useState(false);
+  const [certModalOpen, setCertModalOpen] = useState(false);
+  const [certShownForCourse, setCertShownForCourse] = useState(false);
 
   const { data: course } = useQuery({
     queryKey: ["course", slug],
@@ -35,6 +39,15 @@ export default function Learn() {
     queryKey: ["courseTree", course?.id],
     queryFn: () => fetchCourseTree(course!.id),
     enabled: !!course?.id,
+  });
+
+  const { data: profile } = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: async () => {
+      const { data } = await supabase.from("profiles").select("name, email").eq("id", user!.id).single();
+      return data;
+    },
+    enabled: !!user?.id,
   });
 
   const { data: progressList } = useQuery({
@@ -101,7 +114,15 @@ export default function Learn() {
     queryClient.invalidateQueries({ queryKey: ["courseProgress"] });
     queryClient.invalidateQueries({ queryKey: ["lectureProgress"] });
     toast.success("Lecture completed!");
-  }, [user, currentLectureId, queryClient]);
+
+    // Check if all lectures are now completed
+    const newCompleted = new Set(completedSet);
+    newCompleted.add(currentLectureId);
+    if (allLectures.length > 0 && newCompleted.size === allLectures.length && !certShownForCourse) {
+      setCertShownForCourse(true);
+      setTimeout(() => setCertModalOpen(true), 800);
+    }
+  }, [user, currentLectureId, queryClient, completedSet, allLectures, certShownForCourse]);
 
   const goToLecture = (index: number) => {
     const lec = allLectures[index];
@@ -144,6 +165,11 @@ export default function Learn() {
             ← Back to course
           </button>
           <div className="flex items-center gap-3">
+            {progressPercent === 100 && (
+              <Button size="sm" variant="outline" className="gap-1.5 text-primary border-primary/30" onClick={() => setCertModalOpen(true)}>
+                <Award className="h-4 w-4" /> Certificate
+              </Button>
+            )}
             <span className="text-sm text-muted-foreground">{progressPercent}% complete</span>
             <div className="progress-bar w-32">
               <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }} />
@@ -203,6 +229,16 @@ export default function Learn() {
         courseTitle={course?.title}
         lectureTitle={currentLecture?.title}
         lectureDescription={currentLecture?.description ?? undefined}
+      />
+
+      {/* Certificate Modal */}
+      <CertificateModal
+        open={certModalOpen}
+        onClose={() => setCertModalOpen(false)}
+        studentName={profile?.name || user?.email || "Student"}
+        courseName={course?.title || ""}
+        instructorName={course?.instructor_name || "Instructor"}
+        completionDate={new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}
       />
     </div>
   );
