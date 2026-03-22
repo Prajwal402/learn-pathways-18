@@ -230,6 +230,16 @@ export default function Learn() {
         lectureTitle={currentLecture?.title}
         lectureDescription={currentLecture?.description ?? undefined}
       />
+
+      {/* Certificate Modal */}
+      <CertificateModal
+        open={certModalOpen}
+        onClose={() => setCertModalOpen(false)}
+        studentName={profile?.name || user?.email || "Student"}
+        courseName={course?.title || ""}
+        instructorName={course?.instructor_name || "Instructor"}
+        completionDate={new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}
+      />
     </div>
   );
 }
