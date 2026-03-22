@@ -41,6 +41,15 @@ export default function Learn() {
     enabled: !!course?.id,
   });
 
+  const { data: profile } = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: async () => {
+      const { data } = await supabase.from("profiles").select("name, email").eq("id", user!.id).single();
+      return data;
+    },
+    enabled: !!user?.id,
+  });
+
   const { data: progressList } = useQuery({
     queryKey: ["courseProgress", user?.id, course?.id],
     queryFn: () => fetchCourseProgress(user!.id, course!.id),
