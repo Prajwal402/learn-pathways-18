@@ -38,6 +38,52 @@ export default function Auth() {
     }
   };
 
+  if (showVerification) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-6">
+          <div className="w-full max-w-md text-center space-y-6">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+              <svg className="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h1 className="font-serif text-3xl font-bold">Check Your Email</h1>
+            <p className="text-muted-foreground">
+              We've sent a verification link to <span className="font-semibold text-foreground">{email}</span>. 
+              Click the link in the email to verify your account, then come back and sign in.
+            </p>
+            <div className="space-y-3 pt-4">
+              <Button
+                onClick={() => {
+                  setShowVerification(false);
+                  setIsSignUp(false);
+                  setPassword("");
+                }}
+                className="w-full h-12"
+              >
+                Go to Sign In
+              </Button>
+              <p className="text-xs text-muted-foreground">
+                Didn't receive the email? Check your spam folder or{" "}
+                <button
+                  onClick={() => {
+                    setShowVerification(false);
+                    setIsSignUp(true);
+                  }}
+                  className="text-primary hover:underline"
+                >
+                  try again
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
