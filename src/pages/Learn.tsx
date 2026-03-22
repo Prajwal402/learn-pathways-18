@@ -165,6 +165,11 @@ export default function Learn() {
             ← Back to course
           </button>
           <div className="flex items-center gap-3">
+            {progressPercent === 100 && (
+              <Button size="sm" variant="outline" className="gap-1.5 text-primary border-primary/30" onClick={() => setCertModalOpen(true)}>
+                <Award className="h-4 w-4" /> Certificate
+              </Button>
+            )}
             <span className="text-sm text-muted-foreground">{progressPercent}% complete</span>
             <div className="progress-bar w-32">
               <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }} />
