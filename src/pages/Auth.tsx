@@ -15,6 +15,7 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showVerification, setShowVerification] = useState(false);
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ export default function Auth() {
     try {
       if (isSignUp) {
         await signUp(email, password, name);
-        toast.success("Account created! Check your email to verify.");
+        setShowVerification(true);
       } else {
         await signIn(email, password);
         toast.success("Welcome back!");
