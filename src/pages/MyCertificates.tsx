@@ -6,7 +6,8 @@ import { CertificateModal } from "@/components/CertificateModal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Award, Download, Eye } from "lucide-react";
-import { useNavigate, useEffect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useState } from "react";
 
 interface CompletedCourse {

@@ -28,6 +28,7 @@ const App = () => (
             <Route path="/courses/:slug" element={<CourseDetail />} />
             <Route path="/learn/:slug" element={<Learn />} />
             <Route path="/my-courses" element={<MyCourses />} />
+            <Route path="/my-certificates" element={<MyCertificates />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
