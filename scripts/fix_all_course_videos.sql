@@ -468,6 +468,196 @@ SELECT week2.id, unnest(ARRAY['Next.js Full Stack App', 'Deploy Next.js to Verce
 FROM week2
 ON CONFLICT DO NOTHING;
 
+-- Operating Systems
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=RozoeWzT7QI'  -- OS Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=26QPDBe-NB8'  -- OS Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'operating-systems' AND w.order_index < 2;
+
+-- Cloud Computing
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=2ZaQXW6v0I8'  -- Cloud Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=EN4fPBzRF5G'  -- Cloud Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'cloud-computing' AND w.order_index < 2;
+
+-- Cybersecurity Fundamentals
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=inWWhr5tnEA'  -- Cyber Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=U_P2v25S6vE'  -- Cyber Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'cybersecurity-fundamentals' AND w.order_index < 2;
+
+-- DevOps & CI/CD Pipelines
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=scEDHsr3APg'  -- DevOps Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=scEDHsr3APg'  -- CI/CD Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'devops-ci-cd-pipelines' AND w.order_index < 2;
+
+-- Software Engineering Principles
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=480XNoNAsvE'  -- SE Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=480XNoNAsvE'  -- SE Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'software-engineering-principles' AND w.order_index < 2;
+
+-- System Design
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=m8Icp_Cid5o'  -- System Design Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=m8Icp_Cid5o'  -- System Design Full
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'system-design-for-software-engineers' AND w.order_index < 2;
+
+-- Rust Systems Programming
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=MsocPEZBd-M'  -- Rust Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=MsocPEZBd-M'  -- Rust Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'rust-systems-programming' AND w.order_index < 2;
+
+-- Kubernetes
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=X48VuDVv0do'  -- K8s Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=X48VuDVv0do'  -- K8s Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'kubernetes-container-orchestration' AND w.order_index < 2;
+
+-- Ethical Hacking
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=3Kq1MIfTWCE'  -- Ethical Hacking Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=3Kq1MIfTWCE'  -- Ethical Hacking Full
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'ethical-hacking-penetration-testing' AND w.order_index < 2;
+
+-- iOS Development
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=09TeAS9asvU'  -- iOS Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=09TeAS9asvU'  -- iOS Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'ios-development-with-swift' AND w.order_index < 2;
+
+-- Data Engineering & ETL
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=qWru-7qxpow'  -- Data Eng Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=qWru-7qxpow'  -- ETL Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'data-engineering-etl-pipelines' AND w.order_index < 2;
+
+-- Graph Neural Networks
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=fOctJB4hwl4'  -- GNN Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=fOctJB4hwl4'  -- GNN Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'graph-neural-networks' AND w.order_index < 2;
+
+-- Android Development
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=EExQvHjydCE'  -- Android Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=EExQvHjydCE'  -- Android Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'android-development-with-kotlin' AND w.order_index < 2;
+
+-- Go Microservices
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=VzBGi_n65iU'  -- Go Microservices Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=VzBGi_n65iU'  -- Go Microservices Full
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'go-golang-microservices' AND w.order_index < 2;
+
+-- Advanced SQL
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=7S_tz1z_5bA'  -- SQL Analytics Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=7S_tz1z_5bA'  -- SQL Analytics Full
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'advanced-sql-database-analytics' AND w.order_index < 2;
+
+-- API Design
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=GZvSYJDk-us'  -- API Design Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=GZvSYJDk-us'  -- API Design Full
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'api-design-rest-graphql' AND w.order_index < 2;
+
+-- Data Visualization
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=2LhoCfjm8Bc'  -- Data Viz Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=2LhoCfjm8Bc'  -- Data Viz Full
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'data-visualization-d3-python' AND w.order_index < 2;
+
+-- Terraform
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=SLB_c_ayRMo'  -- Terraform Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=SLB_c_ayRMo'  -- Terraform Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'terraform-infrastructure-as-code' AND w.order_index < 2;
+
+-- UI/UX Design
+UPDATE public.lectures l
+SET youtube_url = CASE l.order_index
+  WHEN 0 THEN 'https://www.youtube.com/watch?v=c9Wg6Cb_YlU'  -- UI/UX Intro
+  WHEN 1 THEN 'https://www.youtube.com/watch?v=c9Wg6Cb_YlU'  -- UI/UX Full Course
+  ELSE youtube_url
+END
+FROM public.weeks w JOIN public.courses c ON w.course_id = c.id
+WHERE l.week_id = w.id AND c.slug = 'uiux-design-for-developers' AND w.order_index < 2;
+
 -- ============================================================
 -- VERIFY - Check lecture counts per course
 -- ============================================================
