@@ -9,6 +9,7 @@ import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import Learn from "./pages/Learn";
 import MyCourses from "./pages/MyCourses";
+import MyCertificates from "./pages/MyCertificates";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
