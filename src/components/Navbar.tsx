@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { BookOpen, LogOut, User } from "lucide-react";
+import { BookOpen, LogOut, User, Award } from "lucide-react";
 
 export function Navbar() {
   const { user, signOut } = useAuth();
@@ -22,6 +22,11 @@ export function Navbar() {
             <>
               <Link to="/my-courses">
                 <Button variant="ghost" size="sm">My Courses</Button>
+              </Link>
+              <Link to="/my-certificates">
+                <Button variant="ghost" size="sm" className="gap-1.5">
+                  <Award className="h-3.5 w-3.5" /> Certificates
+                </Button>
               </Link>
               <Button variant="ghost" size="icon" onClick={signOut}>
                 <LogOut className="h-4 w-4" />

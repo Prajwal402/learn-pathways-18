@@ -9,6 +9,7 @@ import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import Learn from "./pages/Learn";
 import MyCourses from "./pages/MyCourses";
+import MyCertificates from "./pages/MyCertificates";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/courses/:slug" element={<CourseDetail />} />
             <Route path="/learn/:slug" element={<Learn />} />
             <Route path="/my-courses" element={<MyCourses />} />
+            <Route path="/my-certificates" element={<MyCertificates />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
