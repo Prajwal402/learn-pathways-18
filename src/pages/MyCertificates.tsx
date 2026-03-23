@@ -129,7 +129,7 @@ export default function MyCertificates() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                       <Award className="h-6 w-6 text-primary" />
                     </div>
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                       Completed
                     </span>
                   </div>
