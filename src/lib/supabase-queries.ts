@@ -3,20 +3,61 @@ import { supabase } from "@/integrations/supabase/client";
 export async function fetchCourses() {
   const { data, error } = await supabase
     .from("courses")
-    .select("*")
+    .select(`
+      *,
+      weeks (
+        order_index,
+        lectures (
+          order_index,
+          youtube_url
+        )
+      )
+    `)
     .order("created_at", { ascending: false });
+  
   if (error) throw error;
-  return data;
+
+  return data.map(course => {
+    // Sort weeks and lectures to find the first one
+    const sortedWeeks = [...(course.weeks || [])].sort((a, b) => a.order_index - b.order_index);
+    const firstWeek = sortedWeeks[0];
+    const sortedLectures = [...(firstWeek?.lectures || [])].sort((a, b) => a.order_index - b.order_index);
+    const firstLecture = sortedLectures[0];
+
+    return {
+      ...course,
+      first_lecture_youtube_url: firstLecture?.youtube_url || null
+    };
+  });
 }
 
 export async function fetchCourseBySlug(slug: string) {
   const { data, error } = await supabase
     .from("courses")
-    .select("*")
+    .select(`
+      *,
+      weeks (
+        order_index,
+        lectures (
+          order_index,
+          youtube_url
+        )
+      )
+    `)
     .eq("slug", slug)
     .single();
+    
   if (error) throw error;
-  return data;
+
+  const sortedWeeks = [...(data.weeks || [])].sort((a, b) => a.order_index - b.order_index);
+  const firstWeek = sortedWeeks[0];
+  const sortedLectures = [...(firstWeek?.lectures || [])].sort((a, b) => a.order_index - b.order_index);
+  const firstLecture = sortedLectures[0];
+
+  return {
+    ...data,
+    first_lecture_youtube_url: firstLecture?.youtube_url || null
+  };
 }
 
 export async function fetchCourseTree(courseId: string) {
@@ -111,4 +152,42 @@ export async function updateLectureProgress(
       { onConflict: "user_id,lecture_id" }
     );
   if (error) throw error;
+}
+
+export async function fetchMyCourses(userId: string) {
+  const { data: enrollments } = await supabase
+    .from("enrollments")
+    .select("course_id")
+    .eq("user_id", userId);
+  
+  if (!enrollments?.length) return [];
+  const ids = enrollments.map((e) => e.course_id);
+  
+  const { data, error } = await supabase
+    .from("courses")
+    .select(`
+      *,
+      weeks (
+        order_index,
+        lectures (
+          order_index,
+          youtube_url
+        )
+      )
+    `)
+    .in("id", ids);
+    
+  if (error) throw error;
+
+  return data.map(course => {
+    const sortedWeeks = [...(course.weeks || [])].sort((a, b) => a.order_index - b.order_index);
+    const firstWeek = sortedWeeks[0];
+    const sortedLectures = [...(firstWeek?.lectures || [])].sort((a, b) => a.order_index - b.order_index);
+    const firstLecture = sortedLectures[0];
+
+    return {
+      ...course,
+      first_lecture_youtube_url: firstLecture?.youtube_url || null
+    };
+  });
 }

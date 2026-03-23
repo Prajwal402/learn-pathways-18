@@ -63,7 +63,7 @@ export default function Index() {
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {courses.slice(0, 3).map((c) => (
-              <CourseCard key={c.id} slug={c.slug} title={c.title} description={c.description} instructor_name={c.instructor_name} duration_text={c.duration_text} thumbnail_url={c.thumbnail_url} />
+              <CourseCard key={c.id} slug={c.slug} title={c.title} description={c.description} instructor_name={c.instructor_name} duration_text={c.duration_text} thumbnail_url={c.thumbnail_url} first_lecture_youtube_url={(c as any).first_lecture_youtube_url} />
             ))}
           </div>
         </section>

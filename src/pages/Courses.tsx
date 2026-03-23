@@ -26,18 +26,19 @@ export default function Courses() {
             ))}
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {courses?.map((course) => (
-              <CourseCard
-                key={course.id}
-                slug={course.slug}
-                title={course.title}
-                description={course.description}
-                instructor_name={course.instructor_name}
-                duration_text={course.duration_text}
-                thumbnail_url={course.thumbnail_url}
-              />
-            ))}
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {courses?.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  slug={course.slug}
+                  title={course.title}
+                  description={course.description}
+                  instructor_name={course.instructor_name}
+                  duration_text={course.duration_text}
+                  thumbnail_url={course.thumbnail_url}
+                  first_lecture_youtube_url={(course as any).first_lecture_youtube_url}
+                />
+              ))}
             {courses?.length === 0 && (
               <p className="col-span-full text-center text-muted-foreground py-20">No courses available yet.</p>
             )}

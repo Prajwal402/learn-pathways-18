@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BookOpen, Clock, Layers, PlayCircle, User } from "lucide-react";
 import { toast } from "sonner";
+import { getThumbnailUrl } from "@/lib/utils";
 
 export default function CourseDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -105,8 +106,8 @@ export default function CourseDetail() {
           {/* Sidebar */}
           <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <div className="sticky top-24 rounded-lg border bg-card p-6">
-              {course.thumbnail_url && (
-                <img src={course.thumbnail_url} alt={course.title} className="mb-4 rounded-md w-full aspect-video object-cover" />
+              {getThumbnailUrl((course as any).first_lecture_youtube_url || course.thumbnail_url) && (
+                <img src={getThumbnailUrl((course as any).first_lecture_youtube_url || course.thumbnail_url)!} alt={course.title} className="mb-4 rounded-md w-full aspect-video object-cover" />
               )}
               {enrollment ? (
                 <Button className="w-full" size="lg" onClick={() => navigate(`/learn/${slug}`)}>

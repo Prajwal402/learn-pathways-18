@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchMyCourses } from "@/lib/supabase-queries";
 import { useAuth } from "@/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import { CourseCard } from "@/components/CourseCard";
@@ -17,19 +17,7 @@ export default function MyCourses() {
 
   const { data: courses, isLoading } = useQuery({
     queryKey: ["myCourses", user?.id],
-    queryFn: async () => {
-      const { data: enrollments } = await supabase
-        .from("enrollments")
-        .select("course_id")
-        .eq("user_id", user!.id);
-      if (!enrollments?.length) return [];
-      const ids = enrollments.map((e) => e.course_id);
-      const { data } = await supabase
-        .from("courses")
-        .select("*")
-        .in("id", ids);
-      return data ?? [];
-    },
+    queryFn: () => fetchMyCourses(user!.id),
     enabled: !!user?.id,
   });
 
@@ -45,7 +33,7 @@ export default function MyCourses() {
         ) : courses?.length ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {courses.map((c) => (
-              <CourseCard key={c.id} slug={c.slug} title={c.title} description={c.description} instructor_name={c.instructor_name} duration_text={c.duration_text} thumbnail_url={c.thumbnail_url} />
+              <CourseCard key={c.id} slug={c.slug} title={c.title} description={c.description} instructor_name={c.instructor_name} duration_text={c.duration_text} thumbnail_url={c.thumbnail_url} first_lecture_youtube_url={(c as any).first_lecture_youtube_url} />
             ))}
           </div>
         ) : (

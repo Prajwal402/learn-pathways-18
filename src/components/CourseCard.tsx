@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Clock, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { getThumbnailUrl } from "@/lib/utils";
 
 interface CourseCardProps {
   slug: string;
@@ -9,15 +10,21 @@ interface CourseCardProps {
   instructor_name: string;
   duration_text: string | null;
   thumbnail_url: string | null;
+  first_lecture_youtube_url?: string | null;
 }
 
-export function CourseCard({ slug, title, description, instructor_name, duration_text, thumbnail_url }: CourseCardProps) {
+export function CourseCard({ 
+  slug, title, description, instructor_name, duration_text, thumbnail_url, first_lecture_youtube_url 
+}: CourseCardProps) {
+  // Prioritize the first lecture's thumbnail to match the "inside" view
+  const displayThumbnail = getThumbnailUrl(first_lecture_youtube_url || thumbnail_url);
+
   return (
     <Link to={`/courses/${slug}`}>
       <Card className="group overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1">
         <div className="aspect-video bg-muted overflow-hidden">
-          {thumbnail_url ? (
-            <img src={thumbnail_url} alt={title} className="h-full w-full object-cover transition-transform group-hover:scale-105" />
+          {displayThumbnail ? (
+            <img src={displayThumbnail} alt={title} className="h-full w-full object-cover transition-transform group-hover:scale-105" />
           ) : (
             <div className="flex h-full items-center justify-center bg-primary/10">
               <span className="font-serif text-2xl font-bold text-primary/40">{title[0]}</span>
