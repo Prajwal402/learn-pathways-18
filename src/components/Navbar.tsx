@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { BookOpen, LogOut, User } from "lucide-react";
+import { BookOpen, LogOut, User, Award } from "lucide-react";
 
 export function Navbar() {
   const { user, signOut } = useAuth();
